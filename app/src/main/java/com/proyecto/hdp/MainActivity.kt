@@ -12,7 +12,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val database = Firebase.database
         val myRef = database.getReference("message")
+        val mensaje2 = database.getReference("casa")
 
+        mensaje2.setValue("prender luces")
         myRef.setValue("Hello, World!")
     }
 }
