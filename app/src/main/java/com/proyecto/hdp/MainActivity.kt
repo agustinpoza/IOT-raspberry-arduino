@@ -6,6 +6,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     val database = Firebase.database
@@ -27,7 +28,9 @@ class MainActivity : AppCompatActivity() {
         refLuz = refCasa.child("luces")
         refLuzCocina = refLuz.child("luz_cocina")
 
-
+        botonPut.setOnClickListener {
+            refLuzCocina.setValue("True")
+        }
 
     }
 }
