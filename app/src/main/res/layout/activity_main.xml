@@ -18,12 +18,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textEstadoPulsador"
+        android:id="@+id/textTemperatura"
         android:layout_width="150dp"
         android:layout_height="37dp"
         android:layout_marginStart="51dp"
         android:layout_marginTop="16dp"
-        android:text="Estado Pulsador"
+        android:text="Temperatura"
         app:layout_constraintStart_toEndOf="@+id/toggleButton"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

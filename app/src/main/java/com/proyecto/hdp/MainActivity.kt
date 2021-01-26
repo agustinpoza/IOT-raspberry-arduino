@@ -2,7 +2,7 @@ package com.proyecto.hdp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.CompoundButton
+import android.view.View
 import android.widget.TextView
 import android.widget.ToggleButton
 import com.google.firebase.database.*
@@ -13,32 +13,61 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     private var database = Firebase.database
 
-    var refCasa = database.getReference("home")
-    lateinit var refLuz : DatabaseReference
-    lateinit var refLuzCocina : DatabaseReference
-    var btnToggle : ToggleButton? = null
-    var textEstadoPulsador : TextView? = null
+    var refCasa = database.getReference("Casa")
+
+    //luces
+    lateinit var refLuz: DatabaseReference
+    lateinit var refLuzCocina: DatabaseReference
+
+    //temperaturas
+    lateinit var refTemp: DatabaseReference
+    lateinit var refTempCocina: DatabaseReference
+
+    //layout
+    var btnToggle: ToggleButton? = null
+    var textTemperatura: TextView? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //luces
         refLuz = refCasa.child("luces")
         refLuzCocina = refLuz.child("luz_cocina")
         refLuzCocina.setValue(true)
 
+        //temperaturas
+        refTemp = refCasa.child("Temperaturas")
+        refTempCocina = refTemp.child("Temperatura cocina")
+        refTempCocina.setValue("0")
+
+        //layout
         btnToggle = findViewById<ToggleButton>(R.id.toggleButton)
-        textEstadoPulsador = findViewById<TextView>(R.id.textEstadoPulsador)
+        textTemperatura = findViewById(R.id.textTemperatura)
 
         luzControl(refLuzCocina, btnToggle)
-
+        tempControl(refTempCocina, textTemperatura)
 
 
     }
+
+    private fun tempControl(refTempCocina: DatabaseReference, textTemperatura: TextView?) {
+        refTempCocina?.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var Temperatura = snapshot.value as String
+                textTemperatura?.setText(Temperatura)
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+
+    }
+
+
     //creamos una funcion para controlar refLuzCocina
     private fun luzControl(refLuzCocina: DatabaseReference?, btnToggle: ToggleButton?) {
-        //funcion para que el programe escuche cada cambio del boton y lo envie al database
+        //funcion para que el programa escuche cada cambio del boton y lo envie al database
         btnToggle?.setOnCheckedChangeListener { _, isChecked ->
             refLuzCocina?.setValue(
                 isChecked
@@ -55,17 +84,19 @@ class MainActivity : AppCompatActivity() {
                 //se grafcara en el boton si esta encendido o apagado
                 if (estadoLuz) {
                     toggleButton.textOn = "ENCENDIDO"
-                }
-                else {
+                } else {
                     toggleButton.textOff = "APAGADO"
                 }
             }
+
             //error en el firebase
-            override fun onCancelled(error: DatabaseError) {println("error Firebase refLuzCocina")}
+            override fun onCancelled(error: DatabaseError) {
+                println("error Firebase refLuzCocina")
+            }
         })
 
     }
-
 }
+
 
 

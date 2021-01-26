@@ -34,35 +34,6 @@
           ]
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:902987082170:android:a79a0406477ed6dd81d583",
-        "android_client_info": {
-          "package_name": "com.proyecto.iot"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "902987082170-1jlt2oq20ijroabuqspl66a60li62kuv.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDj--srpAHlgvBC_WAaxh7jsBfRebh3iWU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "902987082170-1jlt2oq20ijroabuqspl66a60li62kuv.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
     }
   ],
   "configuration_version": "1"
