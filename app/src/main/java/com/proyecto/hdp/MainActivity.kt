@@ -34,12 +34,12 @@ class MainActivity : AppCompatActivity() {
 
         //luces
         refLuz = refCasa.child("luces")
-        refLuzCocina = refLuz.child("luz_cocina")
+        refLuzCocina = refCasa.child("Luz")
         refLuzCocina.setValue(true)
 
         //temperaturas
-        refTemp = refCasa.child("Temperaturas")
-        refTempCocina = refTemp.child("Temperatura cocina")
+       //refTemp = refCasa.child("Temperaturas")
+        refTempCocina = refCasa.child("Temperatura")
         refTempCocina.setValue("0")
 
         //layout
@@ -53,10 +53,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun tempControl(refTempCocina: DatabaseReference, textTemperatura: TextView?) {
-        refTempCocina?.addValueEventListener(object : ValueEventListener {
+        refTempCocina.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                var Temperatura = snapshot.value as String
-                textTemperatura?.setText(Temperatura)
+                val Temperatura = snapshot.value as String
+                textTemperatura?.text = Temperatura
             }
 
             override fun onCancelled(error: DatabaseError) {}
@@ -97,6 +97,3 @@ class MainActivity : AppCompatActivity() {
 
     }
 }
-
-
-
